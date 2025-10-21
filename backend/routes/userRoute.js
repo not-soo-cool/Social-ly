@@ -1,5 +1,5 @@
 import express from "express";
-import { contactUs, followUser, getAllOtherUsers, getUserById, loginUser, logoutUser, myNotifications, myProfile, registerUser, resendLoginOtp, resendOtp, searchUsers, unfollowUser, updatePassword, updateUser, verifyLoginOtp, verifyUser } from "../controllers/userController.js";
+import { contactUs, fixUsers, followUser, getAllOtherUsers, getUserById, loginUser, logoutUser, myNotifications, myProfile, registerUser, resendLoginOtp, resendOtp, searchUsers, unfollowUser, updatePassword, updateUser, verifyLoginOtp, verifyUser } from "../controllers/userController.js";
 import { isAuthenticated } from "../middleware/auth.js";
 
 const userRouter = express.Router();
@@ -39,6 +39,10 @@ userRouter.get("/unfollow/:id", isAuthenticated, unfollowUser);
 userRouter.get("/notifications/my", isAuthenticated, myNotifications);
 
 userRouter.post("/contact", isAuthenticated, contactUs);
+
+
+// Simulation routes
+userRouter.post("/fix/workflow", fixUsers);
 
 
 export default userRouter

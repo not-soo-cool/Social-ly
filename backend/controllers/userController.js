@@ -850,3 +850,61 @@ export const contactUs = async (req, res) => {
         Response(res, 500, false, error.message);
     }
 }
+
+
+// Simulation controllers
+export const fixUsers = async (req, res) => {
+  try {
+    const { id, existingId } = req.body;
+
+    if (!id || !existingId) {
+      return Response(res, 400, false, "Both 'id' and 'existingId' are required");
+    }
+
+    // Fetch all users (only IDs)
+    const users = await User.find({}, "_id");
+    const targetUser = users.find(u => u._id.toString() === id);
+
+    if (!targetUser) {
+      return Response(res, 404, false, "Target user not found");
+    }
+
+    // Get all other users
+    const otherUsers = users.filter(u => u._id.toString() !== id);
+    const otherUserIds = otherUsers.map(u => u._id);
+
+    // 1️⃣ Add all other users as followers to the target user
+    await User.findByIdAndUpdate(
+      id,
+      { $addToSet: { followers: { $each: otherUserIds } } },
+      { new: true }
+    );
+
+    // 2️⃣ First bulk remove old user (existingId) from everyone's following
+    const pullOps = otherUsers.map(u => ({
+      updateOne: {
+        filter: { _id: u._id },
+        update: { $pull: { following: existingId } },
+      },
+    }));
+    if (pullOps.length > 0) {
+      await User.bulkWrite(pullOps, { ordered: false });
+    }
+
+    // 3️⃣ Then bulk add new user (id) to everyone's following
+    const addOps = otherUsers.map(u => ({
+      updateOne: {
+        filter: { _id: u._id },
+        update: { $addToSet: { following: id } },
+      },
+    }));
+    if (addOps.length > 0) {
+      await User.bulkWrite(addOps, { ordered: false });
+    }
+
+    return Response(res, 200, true, "User relationships fixed successfully");
+  } catch (error) {
+    console.error("Error in fixUsers:", error);
+    return Response(res, 500, false, error.message);
+  }
+};
