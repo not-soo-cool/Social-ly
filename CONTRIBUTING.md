@@ -1,4 +1,4 @@
-# Contributing to [Repository Name]
+# Contributing to `Social.ly`
 
 We are excited to have you contribute to `Social.ly`! Here’s a guide to help you get started:
 
