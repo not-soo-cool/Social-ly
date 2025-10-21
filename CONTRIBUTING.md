@@ -32,3 +32,7 @@ Please follow these guidelines when contributing to `Social.ly`:
 - **Documentation**: Provide clear and detailed documentation for your changes.
 - **Tests**: Write appropriate tests for your changes.
 - **Security**: Ensure your changes do not introduce security vulnerabilities.
+
+### Additional Notes
+- For small fixes like typo corrections, documentation updates, or formatting improvements, you can create a PR directly without any prior discussion.
+- For larger features, you may consider opening an issue first to discuss the design if you want feedback, but it’s not required.
