@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../../redux/Actions/userActions';
 import { toast } from 'react-toastify';
 import toastOptions from '../../constants/toast';
+import { processImageFile } from "../../utils/handleImageUpload"
 
 const Register = () => {
     const spans = Array.from({ length: 128 });
@@ -37,19 +38,13 @@ const Register = () => {
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
+        const result = processImageFile(file);
 
-        const reader = new FileReader();
-        reader.onload = () => {
-            if (reader.readyState === 2) {
-                setDetails({
-                    ...details,
-                    avatar: reader.result // Set the base64 image result
-                });
-            }
-        };
-
-        if (file) {
-            reader.readAsDataURL(file);
+        if(result){
+            setDetails({
+                ...details,
+                avatar: result.base64 // Set the base64 image result
+            });
         }
     };
 
