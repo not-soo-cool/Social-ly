@@ -3,6 +3,7 @@ import '../../styles/UserList.css';
 import { MoreHorizontal } from 'lucide-react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { timeAgo } from "../../utils/timeAgo"
 
 const UserList = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -52,6 +53,7 @@ const UserList = () => {
 
   useEffect(() => {
     if(users){
+      console.log("Users: ", users[0]);
       if(users.length === 0) return
       const filteredUser = users.filter(
         (user) =>
@@ -89,7 +91,7 @@ const UserList = () => {
               <p className="user-last-message">{lastMessage[index%3]}</p>
             </div>
             <div className="user-meta">
-              <span className="last-message-time">2h</span>
+              <span className="last-message-time">{timeAgo(user.updatedAt)}</span>
             </div>
           </li>
         ))}
