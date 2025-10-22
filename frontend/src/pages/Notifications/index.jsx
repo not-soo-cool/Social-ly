@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { myNotifications } from '../../redux/Actions/userActions';
 import { toast } from 'react-toastify';
 import toastOptions from '../../constants/toast';
+import { timeAgo } from "../../utils/timeAgo"
 
 const NotificationPage = () => {
   // const notifications = [
@@ -103,7 +104,7 @@ const NotificationPage = () => {
               ></div>
               <div className="notification-content">
                 <p className="notification-message">{message[index]}</p>
-                <span className="notification-time">{"3w"}</span>
+                <span className="notification-time">{timeAgo(notification?.createdAt)}</span>
               </div>
             </div>
             <div className='post-info'>
