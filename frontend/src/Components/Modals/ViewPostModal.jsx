@@ -8,6 +8,7 @@ import toastOptions from "../../constants/toast";
 import usePostSave from "../../hooks/usePostSave";
 import { deletePost, getPostById, updatePost } from "../../redux/Actions/postActions";
 import usePostLike from "../../hooks/usePostLike";
+import { timeAgo } from "../../utils/timeAgo";
 
 const DropdownMenu = ({ onEdit, onDelete }) => (
     <div className="dropdown-menu">
@@ -248,7 +249,7 @@ const ViewPostModal = ({ onLoad, onClose, postData }) => {
                             </div>
                             <div className="owner-details">
                                 <p>{post?.caption}</p>
-                                <p style={{ color: "rgba(255, 255, 255, 0.5)" }}>3w</p>
+                                <p style={{ color: "rgba(255, 255, 255, 0.5)" }}>{timeAgo(post?.createdAt)}</p>
                             </div>
                         </div>
                         <div className="actions">
@@ -297,7 +298,7 @@ const ViewPostModal = ({ onLoad, onClose, postData }) => {
                                                 />
                                             </div>
                                             <div className="comment-actions">
-                                                <span>3w</span>
+                                                <span>{timeAgo(comment?.createdAt)}</span>
                                                 <span>{`${comment?.likes?.length} ${comment?.likes?.length === 1 ? "like" : "likes"}`} </span>
                                                 <span style={{ cursor: "pointer" }} onClick={() => replyClick(comment?._id)}>Reply</span>
                                                 {
@@ -354,7 +355,7 @@ const ViewPostModal = ({ onLoad, onClose, postData }) => {
                                                                 />
                                                             </div>
                                                             <div className="reply-actions">
-                                                                <span>3w</span>
+                                                                <span>{timeAgo(reply?.createdAt)}</span>
                                                                 <span>{`${reply?.likes?.length} ${reply?.likes?.length === 1 ? "like" : "likes"}`} </span>
                                                                 {
                                                                     reply?.owner?._id === user?._id &&
@@ -392,7 +393,7 @@ const ViewPostModal = ({ onLoad, onClose, postData }) => {
                         <input
                             ref={commentInputRef}
                             type="text"
-                            placeholder="Add a comment..."
+                            placeholder={`Add a ${text.type.toLowerCase()}...`}
                             value={inputText}
                             onChange={(e) => setInputText(e.target.value)}
                         />

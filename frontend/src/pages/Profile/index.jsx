@@ -21,15 +21,6 @@ const ProfilePage = () => {
     dispatch(loadUser());
   }
 
-  const posts = [
-    { id: 1, image: 'https://via.placeholder.com/200', caption: 'Exploring the mountains!' },
-    { id: 2, image: 'https://via.placeholder.com/200', caption: 'Coffee is life ☕' },
-    { id: 3, image: 'https://via.placeholder.com/200', caption: 'Hello from the other side!' },
-    { id: 4, image: 'https://via.placeholder.com/200', caption: 'Sunset vibes 🌅' },
-    { id: 5, image: 'https://via.placeholder.com/200', caption: 'Beautiful city views!' },
-    { id: 6, image: 'https://via.placeholder.com/200', caption: 'Having a great time with friends!' },
-  ];
-
   const bio = [
     "Frontend Developer | Coffee Lover ☕ | Dreamer 🌟 ",
     "Living in the city, coding, and exploring the world.",
