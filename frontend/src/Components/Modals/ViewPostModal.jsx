@@ -393,7 +393,7 @@ const ViewPostModal = ({ onLoad, onClose, postData }) => {
                         <input
                             ref={commentInputRef}
                             type="text"
-                            placeholder="Add a comment..."
+                            placeholder={`Add a ${text.type.toLowerCase()}...`}
                             value={inputText}
                             onChange={(e) => setInputText(e.target.value)}
                         />
