@@ -36,9 +36,9 @@ const Register = () => {
         });
     };
 
-    const handleImageChange = (e) => {
+    const handleImageChange = async (e) => {
         const file = e.target.files[0];
-        const result = processImageFile(file);
+        const result = await processImageFile(file);
 
         if(result){
             setDetails({

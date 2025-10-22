@@ -1,10 +1,5 @@
 import heic2any from "heic2any";
 
-/**
- * Handles image input and returns Base64 + blob version.
- * @param {File} file - The image file selected by the user.
- * @returns {Promise<{ base64: string, blob: Blob }>}
- */
 export const processImageFile = async (file) => {
   if (!file) return null;
 
