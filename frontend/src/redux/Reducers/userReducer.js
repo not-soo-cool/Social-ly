@@ -68,6 +68,10 @@ const contactUsRequest = createAction('CONTACT_US_REQUEST');
 const contactUsSuccess = createAction('CONTACT_US_SUCCESS');
 const contactUsFailure = createAction('CONTACT_US_FAILURE');
 
+const chatUsersRequest = createAction('CHAT_USERS_REQUEST');
+const chatUsersSuccess = createAction('CHAT_USERS_SUCCESS');
+const chatUsersFailure = createAction('CHAT_USERS_FAILURE');
+
 const clearError = createAction('CLEAR_ERROR');
 const clearAuthError = createAction('CLEAR_AUTH_ERROR');
 const clearMessage = createAction('CLEAR_MESSAGE');
@@ -322,5 +326,23 @@ export const contactUsReducer = createReducer(initialState, (builder) => {
         })
         .addCase(clearMessage, (state) => {
             state.message = null;
+        })
+})
+
+export const getAllChatUsersReducer = createReducer(initialState, (builder) => {
+    builder
+        .addCase(chatUsersRequest, (state) => {
+            state.loading = true;
+        })
+        .addCase(chatUsersSuccess, (state, action) => {
+            state.loading = false;
+            state.chatUsers = action.payload;
+        })
+        .addCase(chatUsersFailure, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        })
+        .addCase(clearError, (state) => {
+            state.error = null;
         })
 })

@@ -6,6 +6,7 @@ import Chat from '../../Components/Messages/Chat';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserChats } from '../../redux/Actions/chatActions';
+import { getAllChatUsers } from '../../redux/Actions/userActions';
 
 const MessagePage = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,10 @@ const MessagePage = () => {
       setSelectedUser(users.find((user) => user._id.toString() === id.toString()));
     }
   }, [id, users]);
+
+  useEffect(() => {
+    dispatch(getAllChatUsers());
+  }, []);
 
   return (
     <div className="message-page">

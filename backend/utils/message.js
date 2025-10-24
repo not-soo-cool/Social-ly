@@ -62,4 +62,6 @@ export const message = {
     postUpdatedMessage: "Post updated successfully",
     notificationsFoundMessage: "All Notifications fetched successfully",
     feedbackSentMessage: "Feedback sent successfully",
+    chatUsersMessage: "Chat users fetched successfully",
+    chatUserNotFoundMessage: "Chat user not found"
 }

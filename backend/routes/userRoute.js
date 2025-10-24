@@ -1,5 +1,5 @@
 import express from "express";
-import { contactUs, followUser, getAllOtherUsers, getUserById, loginUser, logoutUser, myNotifications, myProfile, registerUser, resendLoginOtp, resendOtp, searchUsers, unfollowUser, updatePassword, updateUser, verifyLoginOtp, verifyUser } from "../controllers/userController.js";
+import { contactUs, followUser, getAllOtherUsers, getChatUsers, getUserById, loginUser, logoutUser, myNotifications, myProfile, registerUser, resendLoginOtp, resendOtp, searchUsers, unfollowUser, updatePassword, updateUser, verifyLoginOtp, verifyUser } from "../controllers/userController.js";
 import { isAuthenticated } from "../middleware/auth.js";
 
 const userRouter = express.Router();
@@ -27,6 +27,8 @@ userRouter.patch("/update/profile", isAuthenticated, updateUser);
 userRouter.patch("/update/password", isAuthenticated, updatePassword);
 
 userRouter.get("/search", isAuthenticated, searchUsers);
+
+userRouter.get("/chats", isAuthenticated, getChatUsers);
 
 
 

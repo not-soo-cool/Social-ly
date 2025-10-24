@@ -632,7 +632,51 @@ export const getUserById = async (req, res) => {
         Response(res, 200, true, message.userFoundMessage, user);
         
     } catch (error) {
+        Response(res, 500, false, error.message);
+    }
+}
+
+export const getChatUsers = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id)
+            .populate({
+                path: 'chats',
+                populate: [
+                    {
+                        path: 'members',
+                        match: { _id: { $ne: req.user._id } },
+                        select: 'firstName middleName lastName username avatar'
+                    },
+                    {
+                        path: 'messages',
+                        populate: {
+                            path: 'sender',
+                            select: 'firstName middleName lastName username avatar'
+                        }
+                    }
+                ]
+            });
+
+        // Transforming the data to modify the structure
+        const transformedChats = user.chats.map((chat) => {
+            const { _id, username, firstName, middleName, lastName, avatar } = chat.members[0];
+
+            return {
+                ...chat.toObject(), // Convert Mongoose document to plain object
+                _id: _id,  // Replace the chat's _id with the member's _id
+                username,
+                firstName,
+                middleName,
+                lastName,
+                avatar,
+                members: undefined // Remove the members field
+            };
+        });
+
+        Response(res, 200, true, message.chatUsersMessage, transformedChats);
         
+    } catch (error) {
+        Response(res, 500, false, error.message);
     }
 }
 

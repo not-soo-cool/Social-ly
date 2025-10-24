@@ -384,3 +384,24 @@ export const contactUs = (details) => async (dispatch) => {
     });
   }
 };
+
+export const getAllChatUsers = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: "CHAT_USERS_REQUEST",
+    });
+
+    const { data } = await axios.get(`${URL}/chats`);
+
+    dispatch({
+      type: "CHAT_USERS_SUCCESS",
+      payload: data.data,
+    });
+
+  } catch (error) {
+    dispatch({
+      type: "CHAT_USERS_FAILURE",
+      payload: error?.response?.data?.message,
+    });
+  }
+}
